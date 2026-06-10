@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
+import sqlite3
 
 app = FastAPI()
 
@@ -7,52 +8,62 @@ class Song(BaseModel):
     title: str
     artist: str
 
-songs = []
-next_id = 1
-
 @app.get("/")
 def home():
     return {"message": "AI Music Assistant API"}
 
 @app.get("/songs")
 def get_songs():
+
+    connection = sqlite3.connect("songs.db")
+
+    cursor = connection.cursor()
+
+    cursor.execute("SELECT * FROM songs")
+
+    songs = cursor.fetchall()
+
     return songs
 
 @app.post("/songs")
 def create_song(song: Song):
 
-    global next_id
+    connection = sqlite3.connect("songs.db")
 
-    new_song = {
-        "id": next_id,
-        "title": song.title,
-        "artist": song.artist
-    }
+    cursor = connection.cursor()
 
-    songs.append(new_song)
+    cursor.execute("""
+    INSERT INTO songs (title, artist)
+    VALUES (?, ?)
+    """, (song.title, song.artist))
 
-    next_id += 1
+    connection.commit()
 
     return {
-        "message": "Song added",
-        "song": new_song
+        "message": "Song added"
     }
 
 @app.delete("/songs/{song_id}")
 def delete_song(song_id: int):
 
-    for song in songs:
+    connection = sqlite3.connect("songs.db")
 
-        if song["id"] == song_id:
+    cursor = connection.cursor()
 
-            songs.remove(song)
+    cursor.execute(
+        "DELETE FROM songs WHERE id = ?",
+        (song_id,)
+    )
 
-            return {
-                "message": "Song deleted"
-            }
+    if cursor.rowcount == 0:
+        return {
+            "error": "Song not found"
+        }
+
+    connection.commit()
 
     return {
-        "error": "Song not found"
+        "message": "Song deleted"
     }
 
 @app.put("/songs/{song_id}")
