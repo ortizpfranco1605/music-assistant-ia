@@ -34,6 +34,34 @@ def get_songs():
     return [dict(song) for song in songs]
 
 
+@app.get("/songs/search", response_model=list[SongResponse])
+def search_songs(artist: str):
+
+    connection = sqlite3.connect("songs.db")
+
+    connection.row_factory = sqlite3.Row
+
+    cursor = connection.cursor()
+
+    cursor.execute(
+        """
+        SELECT * FROM songs
+        WHERE artist = ?
+        """,
+        (artist,)
+    )
+
+    songs = cursor.fetchall()
+
+    if not songs:
+        raise HTTPException(
+            status_code=404,
+            detail="Songs not found"
+        )
+
+    return [dict(song) for song in songs]
+
+
 @app.get("/songs/{song_id}", response_model=SongResponse)
 def get_song(song_id: int):
 
@@ -60,6 +88,7 @@ def get_song(song_id: int):
         )
 
     return dict(song)
+
 
 
 @app.post("/songs")
