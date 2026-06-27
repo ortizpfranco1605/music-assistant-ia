@@ -1,9 +1,22 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import sqlite3
 from fastapi import HTTPException
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+
+    allow_origins=["*"],
+
+    allow_credentials=True,
+
+    allow_methods=["*"],
+
+    allow_headers=["*"]
+)
 
 class Song(BaseModel):
     title: str
@@ -104,6 +117,7 @@ def create_song(song: Song):
     """, (song.title, song.artist))
 
     connection.commit()
+    connection.close()
 
     return {
         "message": "Song added"
