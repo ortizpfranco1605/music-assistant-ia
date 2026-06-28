@@ -1,80 +1,98 @@
-# Music Assistant IA
+# 🎵 Music Assistant
 
-Mi primer proyecto backend desarrollado con Python y FastAPI.
+Uno de mis primeros proyectos **full-stack**, desarrollado con **Python**, **FastAPI**, **SQLite** y un frontend en **HTML, CSS y JavaScript**.
 
-## Descripción
+El objetivo de este proyecto fue comenzar a desarrollar aplicaciones completas, conectando un frontend con una API REST y una base de datos.
 
-Esta aplicación expone una API REST para gestionar una colección de canciones.
+# 🚀 Funcionalidades
 
-Actualmente permite:
+## Backend
 
-* Crear canciones
-* Listar canciones
-* Actualizar canciones
-* Eliminar canciones
+* CRUD completo de canciones.
+* Búsqueda de canciones por ID.
+* Búsqueda de canciones por artista.
+* Persistencia de datos utilizando SQLite.
+* Validación de datos mediante Pydantic.
+* Documentación automática de la API con Swagger.
 
-Cada canción posee:
+## Frontend
 
-* ID
-* Título
-* Artista
+* Listado dinámico de canciones.
+* Crear canciones.
+* Editar canciones.
+* Eliminar canciones.
+* Interfaz con tema oscuro.
+* Formulario reutilizable para crear y editar.
+* Actualización dinámica de la interfaz utilizando Fetch API.
 
-## Tecnologías utilizadas
+---
+
+# 🛠 Tecnologías utilizadas
+
+## Backend
 
 * Python
 * FastAPI
+* SQLite
 * Pydantic
 * Uvicorn
+
+## Frontend
+
+* HTML
+* CSS
+* JavaScript
+* Fetch API
+
+## Herramientas
+
 * Git
 * GitHub
 
-## Endpoints
+---
 
-### Obtener canciones
+# 📌 API REST
 
-```http
-GET /songs
+| Método | Endpoint           | Descripción                  |
+| ------ | ------------------ | ---------------------------- |
+| GET    | `/songs`           | Obtener todas las canciones  |
+| GET    | `/songs/{song_id}` | Buscar una canción por ID    |
+| GET    | `/songs/search`    | Buscar canciones por artista |
+| POST   | `/songs`           | Crear una nueva canción      |
+| PUT    | `/songs/{song_id}` | Actualizar una canción       |
+| DELETE | `/songs/{song_id}` | Eliminar una canción         |
+
+---
+
+# ⚙️ Cómo ejecutar el proyecto
+
+Clonar el repositorio:
+
+```bash
+git clone <URL_DEL_REPOSITORIO>
 ```
 
-### Crear canción
+Ingresar al proyecto:
 
-```http
-POST /songs
+```bash
+cd Music-Assistant
 ```
 
-Ejemplo:
+Crear un entorno virtual (opcional pero recomendado):
 
-```json
-{
-  "title": "You shook me all night long",
-  "artist": "AC/DC"
-}
+```bash
+python -m venv venv
 ```
 
-### Actualizar canción
+Activar el entorno virtual:
 
-```http
-PUT /songs/{song_id}
+**Windows (PowerShell)**
+
+```powershell
+.\venv\Scripts\Activate.ps1
 ```
 
-Ejemplo:
-
-```json
-{
-  "title": "You shook me all night long (Remastered)",
-  "artist": "AC/DC"
-}
-```
-
-### Eliminar canción
-
-```http
-DELETE /songs/{song_id}
-```
-
-## Ejecutar el proyecto
-
-Instalar dependencias:
+Instalar las dependencias:
 
 ```bash
 pip install fastapi uvicorn pydantic
@@ -86,20 +104,50 @@ Iniciar el servidor:
 uvicorn main:app --reload
 ```
 
-Documentación interactiva:
+Abrir la documentación interactiva:
 
 ```text
 http://127.0.0.1:8000/docs
 ```
 
-## Próximas mejoras
+---
 
-* Persistencia con SQLite
-* Búsqueda de canciones
-* Filtros por artista
-* Integración con IA
-* Despliegue en la nube
+# 📚 Lo que aprendí
 
-## Autor
+Durante el desarrollo de este proyecto puse en práctica conceptos como:
 
-Franco Ortiz
+* Desarrollo de APIs REST con FastAPI.
+* Operaciones CRUD (Create, Read, Update y Delete).
+* Persistencia de datos utilizando SQLite.
+* Validación de datos mediante Pydantic.
+* Consumo de APIs desde JavaScript utilizando Fetch API.
+* Manipulación del DOM.
+* Integración entre frontend y backend.
+* Organización de un proyecto full-stack.
+* Uso de Git y GitHub para el control de versiones.
+
+---
+
+# 🚀 Próximas mejoras
+
+* Conectar la búsqueda por ID al frontend.
+* Conectar la búsqueda por artista al frontend.
+* Mejorar la interfaz para dispositivos móviles.
+* Publicar la aplicación en la nube.
+* Incorporar nuevas funcionalidades relacionadas con música.
+
+---
+
+# 💡 Sobre este proyecto
+
+Este proyecto representa un paso importante en mi aprendizaje como desarrollador.
+
+Después de realizar la carrera de Licenciatura en Informática en UDE, cursos, resolver ejercicios y proyectos académicos durante un tiempo, decidí comenzar a desarrollar aplicaciones completas para integrar backend, frontend y base de datos en un mismo proyecto.
+
+Mi objetivo es seguir construyendo nuevos proyectos para continuar aprendiendo y ampliar mi portfolio.
+
+---
+
+# 👨‍💻 Autor
+
+**Franco Ortiz**
